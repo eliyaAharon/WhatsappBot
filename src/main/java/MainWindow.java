@@ -1,3 +1,4 @@
+import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import javax.swing.*;
@@ -7,6 +8,7 @@ public class MainWindow {
 
     public static Window window;
     public static UserInput userInput;
+    public static ChromeDriver driver;
 
 
     public static void main(String[] args) {
@@ -21,7 +23,7 @@ public class MainWindow {
 
         // button setting
         JButton enterButton = new JButton(" to enter whathap web ");
-        enterButton.setBackground(new Color(0 ,209 ,142));
+        enterButton.setBackground(new Color(0, 209, 142));
         enterButton.setBounds(150, 280, 200, 100);
         enterButton.setFont(f);
         window.add(enterButton);
@@ -31,7 +33,7 @@ public class MainWindow {
             window.setVisible(false);
             enterButton.setVisible(false);
             System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
-            ChromeDriver driver = new ChromeDriver();
+            driver = new ChromeDriver();
             driver.manage().window().maximize();
             driver.get("https://web.whatsapp.com/");
             checkScan(driver);
@@ -52,7 +54,7 @@ public class MainWindow {
                     success.setForeground(Color.YELLOW);
                     success.setFont(fSuccess);
                     window.add(success);
-                    userInput = new UserInput();
+                    userInput = new UserInput(driver);
 
                 }
             }

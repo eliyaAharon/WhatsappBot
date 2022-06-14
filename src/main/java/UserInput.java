@@ -1,24 +1,26 @@
+import org.openqa.selenium.chrome.ChromeDriver;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class UserInput {
     private int x = 200, y1 = 150, y2 = 250, width = 200, height = 50;
 
-    public UserInput() {
+    public UserInput(ChromeDriver driver) {
         // font setting
         Font myFont = new Font("Arial", Font.BOLD, 22);
 
         // button setting
         Button sendButton = new Button("sign in");
         sendButton.setFont(myFont);
-        sendButton.setBackground(new Color(0, 209, 142));
+        sendButton.setBackground(new Color(13, 168, 138));
         sendButton.setBounds(90, 400, 300, 70);
         MainWindow.window.add(sendButton);
 
         // number textField
         JTextField phoneNumber = new JTextField("0502592666");
         phoneNumber.setBounds(this.x, this.y1, this.width, this.height);
-        phoneNumber.setBackground(new Color(0, 209, 142));
+        phoneNumber.setBackground(new Color(13, 168, 138));
         phoneNumber.setFont(myFont);
         System.out.println(noNumber(phoneNumber));
         System.out.println(checkNumber(phoneNumber));
@@ -27,7 +29,7 @@ public class UserInput {
         // massage textField
         JTextField textMessage = new JTextField();
         textMessage.setBounds(this.x, this.y2, this.width, this.height);
-        textMessage.setBackground(new Color(0, 209, 142));
+        textMessage.setBackground(new Color(13, 168, 138));
         textMessage.setFont(myFont);
         MainWindow.window.add(textMessage);
         MainWindow.window.add(phoneNumber);
@@ -36,7 +38,7 @@ public class UserInput {
         // number label
         JLabel numberLabel = new JLabel("Enter number");
         numberLabel.setBounds(50, this.y1, 170, this.height);
-        numberLabel.setBackground(new Color(0, 209, 142));
+        numberLabel.setBackground(new Color(13, 168, 138));
         numberLabel.setOpaque(true);
         numberLabel.setFont(myFont);
         MainWindow.window.add(numberLabel);
@@ -45,7 +47,7 @@ public class UserInput {
         // text label
         JLabel textLabel = new JLabel("Enter text");
         textLabel.setBounds(50, this.y2, 170, this.height);
-        textLabel.setBackground(new Color(0, 209, 142));
+        textLabel.setBackground(new Color(13, 168, 138));
         textLabel.setOpaque(true);
         textLabel.setFont(myFont);
         MainWindow.window.add(textLabel);
@@ -55,7 +57,7 @@ public class UserInput {
         JLabel errorLabel = new JLabel();
         errorLabel.setBounds(90, 350, 300, 50);
         errorLabel.setForeground(Color.RED);
-        errorLabel.setBackground(new Color(0, 209, 142));
+        errorLabel.setBackground(new Color(13, 168, 138));
         errorLabel.setOpaque(true);
         errorLabel.setFont(erorFont);
         errorLabel.setVisible(false);
@@ -72,10 +74,13 @@ public class UserInput {
                     if (!checkNumber(phoneNumber) || !noNumber(phoneNumber)) {
                         errorLabel.setText("YOU MUST ENTER NUMBER(10 digits)");
                     }
+                    if (noMessage(textMessage) && noNumber(phoneNumber) && checkNumber(phoneNumber)) {
+                        driver.get("https://web.whatsapp.com/send?phone=972" + phoneNumber.getText());
+                    }
                 }
-            }catch (Exception ex ){
+            } catch (Exception ex) {
                 errorLabel.setVisible(true);
-                    errorLabel.setText("bla");
+                errorLabel.setText("bla");
                 System.err.println("!!!");
             }
 

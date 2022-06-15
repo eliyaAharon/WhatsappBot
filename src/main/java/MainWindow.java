@@ -1,22 +1,27 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class MainWindow {
 
     public static Window window;
     public static UserInput userInput;
     public static ChromeDriver driver;
+    public static FirstAudio firstAudio;
 
 
-    public static void main(String[] args) {
-        MainWindow atemp = new MainWindow();
+    public static void main(String[] args) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        MainWindow mainWindow = new MainWindow();
     }
 
     // constractor
-    public MainWindow() {
+    public MainWindow() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        firstAudio = new FirstAudio();
         Font f = new Font("ARIEL ", Font.BOLD, 18);
 
         window = new Window();
@@ -30,6 +35,7 @@ public class MainWindow {
 
         // button affect
         enterButton.addActionListener((e -> {
+            firstAudio.stopAudio();
             window.setVisible(false);
             enterButton.setVisible(false);
             System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");

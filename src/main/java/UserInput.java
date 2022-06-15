@@ -1,3 +1,5 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import javax.swing.*;
@@ -76,6 +78,14 @@ public class UserInput {
                     }
                     if (noMessage(textMessage) && noNumber(phoneNumber) && checkNumber(phoneNumber)) {
                         driver.get("https://web.whatsapp.com/send?phone=972" + phoneNumber.getText());
+                        Robot robot = new Robot();
+                        sendButton.setVisible(false);
+                        robot.delay(15000);
+                        WebElement input = driver.findElement(By.xpath("//*[@id=\"main\"]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[2]"));
+                        input.click();
+                        input.sendKeys(textMessage.getText());
+                        WebElement sendMessage = driver.findElement(By.cssSelector("#main > footer > div._2BU3P.tm2tP.copyable-area > div > span:nth-child(2) > div > div._2lMWa > div._3HQNh._1Ae7k"));
+                        sendMessage.click();
                     }
                 }
             } catch (Exception ex) {

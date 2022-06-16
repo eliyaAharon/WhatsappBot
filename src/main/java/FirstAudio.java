@@ -7,7 +7,7 @@ public class FirstAudio {
     private Clip clip;
 
     public FirstAudio() throws LineUnavailableException, IOException, UnsupportedAudioFileException {
-        File file = new File("וואצאפ פתיח נסוי.wav");
+        File file = new File("פתיח וואצאפ נסוי 2.wav");
         AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
         clip = AudioSystem.getClip();
         clip.open(audioStream);

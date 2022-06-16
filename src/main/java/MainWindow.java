@@ -54,12 +54,6 @@ public class MainWindow {
             while (falg) {
                 if (c.getPageSource().contains("תיבת טקסט להזנת החיפוש")) {
                     falg = false;
-                    JLabel success = new JLabel("Login successfully :)");
-                    success.setBounds(0, 0, 300, 100);
-                    Font fSuccess = new Font("ARIEL ", Font.BOLD, 15);
-                    success.setForeground(Color.YELLOW);
-                    success.setFont(fSuccess);
-                    window.add(success);
                     userInput = new UserInput(driver);
 
                 }

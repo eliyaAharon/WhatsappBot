@@ -9,11 +9,18 @@ public class UserInput {
     private int x = 200, y1 = 150, y2 = 250, width = 200, height = 50;
 
     public UserInput(ChromeDriver driver) {
+        //success label
+        JLabel success = new JLabel("Login successfully :)");
+        success.setBounds(0, 0, 300, 100);
+        Font fSuccess = new Font("ARIEL ", Font.BOLD, 15);
+        success.setForeground(Color.YELLOW);
+        success.setFont(fSuccess);
+        MainWindow.window.add(success);
         // font setting
         Font myFont = new Font("Arial", Font.BOLD, 22);
 
         // button setting
-        Button sendButton = new Button("sign in");
+        Button sendButton = new Button("Send");
         sendButton.setFont(myFont);
         sendButton.setBackground(new Color(13, 168, 138));
         sendButton.setBounds(90, 400, 300, 70);
@@ -24,9 +31,6 @@ public class UserInput {
         phoneNumber.setBounds(this.x, this.y1, this.width, this.height);
         phoneNumber.setBackground(new Color(13, 168, 138));
         phoneNumber.setFont(myFont);
-        System.out.println(noNumber(phoneNumber));
-        System.out.println(checkNumber(phoneNumber));
-
 
         // massage textField
         JTextField textMessage = new JTextField();
@@ -77,21 +81,30 @@ public class UserInput {
                         errorLabel.setText("YOU MUST ENTER NUMBER(10 digits)");
                     }
                     if (noMessage(textMessage) && noNumber(phoneNumber) && checkNumber(phoneNumber)) {
+                        MainWindow.window.setVisible(false);
+                        success.setVisible(false);
+                        errorLabel.setVisible(false);
+                        textLabel.setVisible(false);
+                        phoneNumber.setVisible(false);
+                        textMessage.setVisible(false);
+                        numberLabel.setVisible(false);
+                        sendButton.setVisible(false);
+
                         driver.get("https://web.whatsapp.com/send?phone=972" + phoneNumber.getText());
                         Robot robot = new Robot();
-                        sendButton.setVisible(false);
-                        robot.delay(15000);
+                        robot.delay(12000);
                         WebElement input = driver.findElement(By.xpath("//*[@id=\"main\"]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[2]"));
                         input.click();
                         input.sendKeys(textMessage.getText());
                         WebElement sendMessage = driver.findElement(By.cssSelector("#main > footer > div._2BU3P.tm2tP.copyable-area > div > span:nth-child(2) > div > div._2lMWa > div._3HQNh._1Ae7k"));
                         sendMessage.click();
+                        MainWindow.window.setVisible(true);
+
                     }
                 }
             } catch (Exception ex) {
                 errorLabel.setVisible(true);
-                errorLabel.setText("bla");
-                System.err.println("!!!");
+                errorLabel.setText("YOU MUST ENTER NUMBER(10 digits)");
             }
 
         }));
@@ -107,7 +120,6 @@ public class UserInput {
         for (int i = 0; i < 3; i++) {
             str += t.getText().charAt(i);
         }
-        System.out.println(str);
 
         if (numOfCars != 10)
             return false;
@@ -130,7 +142,6 @@ public class UserInput {
             return false;
         return true;
     }
-
 }
 
 

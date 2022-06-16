@@ -5,7 +5,7 @@ public class Window extends JFrame {
     public static final int WINDOW_WIDTH = 500;
     public static final int WINDOW_HEIGHT = 600;
 
-    public Window(){
+    public Window() {
         this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         this.setResizable(false);
         this.setLayout(null);
@@ -15,5 +15,10 @@ public class Window extends JFrame {
         this.getContentPane().setBackground(Color.WHITE);
         this.setTitle("My whatsapp web -->");
 
+    }
+
+    public void customRemove() {
+        this.getContentPane().removeAll();
+        this.repaint();
     }
 }

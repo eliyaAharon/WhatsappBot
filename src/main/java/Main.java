@@ -14,8 +14,6 @@ public class Main extends JFrame {
         Main m = new Main();
     }
 
-
-
     public Main() {
         this.setSize(500, 650);
         this.setResizable(false);

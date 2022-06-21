@@ -2,15 +2,19 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class UserInput {
     private int x = 200, y1 = 150, y2 = 250, width = 200, height = 50;
     private static ImageIcon successImage;
 
-    public UserInput(ChromeDriver driver) {
+    public UserInput(ChromeDriver driver) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         //success label
+        SecondAudio secondAudio = new SecondAudio();
         JLabel success = new JLabel("Login successfully :)");
         success.setBounds(this.x - 40, 0, 300, 100);
         Font fSuccess = new Font("ARIEL ", Font.BOLD, 18);
@@ -82,6 +86,7 @@ public class UserInput {
                         errorLabel.setText("YOU MUST ENTER NUMBER(10 digits)");
                     }
                     if (noMessage(textMessage) && noNumber(phoneNumber) && checkNumber(phoneNumber)) {
+                        secondAudio.stopAudio();
                         MainWindow.window.setVisible(false);
                         success.setVisible(false);
                         errorLabel.setVisible(false);

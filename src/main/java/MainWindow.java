@@ -54,7 +54,15 @@ public class MainWindow {
             while (falg) {
                 if (c.getPageSource().contains("תיבת טקסט להזנת החיפוש")) {
                     falg = false;
-                    userInput = new UserInput(driver);
+                    try {
+                        userInput = new UserInput(driver);
+                    } catch (UnsupportedAudioFileException e) {
+                        e.printStackTrace();
+                    } catch (LineUnavailableException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
                 }
             }

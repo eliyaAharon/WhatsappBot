@@ -105,7 +105,7 @@ public class UserInput {
                             sendMessage.click();
                         }
                         while (true) {
-                            if (driver.getPageSource().contains(" נשלחה ") || driver.getPageSource().contains(" נקראה ")) {
+                            if (driver.getPageSource().contains(" נשלחה ") || driver.getPageSource().contains(" נקראה ") || driver.getPageSource().contains(" Read ") ||  driver.getPageSource().contains(" Delivered ")) {
                                 driver.close();
                                 MainWindow.window.addImage();
                                 break;
@@ -153,7 +153,7 @@ public class UserInput {
 
         boolean flag = false;
         while (true) {
-            if (driver.getPageSource().contains("הקלדת ההודעה")) {
+            if (driver.getPageSource().contains("הקלדת ההודעה") || driver.getPageSource().contains("Type a message")) {
                 flag = true;
             }
             if (flag == true)

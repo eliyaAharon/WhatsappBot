@@ -7,13 +7,14 @@ import java.awt.*;
 
 public class UserInput {
     private int x = 200, y1 = 150, y2 = 250, width = 200, height = 50;
+    private static ImageIcon successImage;
 
     public UserInput(ChromeDriver driver) {
         //success label
         JLabel success = new JLabel("Login successfully :)");
-        success.setBounds(0, 0, 300, 100);
-        Font fSuccess = new Font("ARIEL ", Font.BOLD, 15);
-        success.setForeground(Color.YELLOW);
+        success.setBounds(this.x - 40, 0, 300, 100);
+        Font fSuccess = new Font("ARIEL ", Font.BOLD, 18);
+        success.setForeground(new Color(13, 168, 138));
         success.setFont(fSuccess);
         MainWindow.window.add(success);
         // font setting
@@ -27,7 +28,7 @@ public class UserInput {
         MainWindow.window.add(sendButton);
 
         // number textField
-        JTextField phoneNumber = new JTextField("0502592666");
+        JTextField phoneNumber = new JTextField();
         phoneNumber.setBounds(this.x, this.y1, this.width, this.height);
         phoneNumber.setBackground(new Color(13, 168, 138));
         phoneNumber.setFont(myFont);
@@ -91,14 +92,21 @@ public class UserInput {
                         sendButton.setVisible(false);
 
                         driver.get("https://web.whatsapp.com/send?phone=972" + phoneNumber.getText());
-                        Robot robot = new Robot();
-                        robot.delay(12000);
-                        WebElement input = driver.findElement(By.xpath("//*[@id=\"main\"]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[2]"));
-                        input.click();
-                        input.sendKeys(textMessage.getText());
-                        WebElement sendMessage = driver.findElement(By.cssSelector("#main > footer > div._2BU3P.tm2tP.copyable-area > div > span:nth-child(2) > div > div._2lMWa > div._3HQNh._1Ae7k"));
-                        sendMessage.click();
-                        MainWindow.window.setVisible(true);
+                        if (isInChat(driver)) {
+                            WebElement input = driver.findElement(By.cssSelector("#main > footer > div._2BU3P.tm2tP.copyable-area > div > span:nth-child(2) > div > div._2lMWa > div.p3_M1 > div > div._13NKt.copyable-text.selectable-text"));
+                            input.click();
+                            input.sendKeys(textMessage.getText());
+                            WebElement sendMessage = driver.findElement(By.cssSelector("#main > footer > div._2BU3P.tm2tP.copyable-area > div > span:nth-child(2) > div > div._2lMWa > div._3HQNh._1Ae7k"));
+                            sendMessage.click();
+                        }
+                        while (true) {
+                            if (driver.getPageSource().contains(" נשלחה ") || driver.getPageSource().contains(" נקראה ")) {
+                                driver.close();
+                                MainWindow.window.addImage();
+                                break;
+                            }
+                        }
+
 
                     }
                 }
@@ -123,23 +131,29 @@ public class UserInput {
 
         if (numOfCars != 10)
             return false;
-        if (str.equals("050") || str.equals("051") || str.equals("052") || str.equals("053") || str.equals("054") || str.equals("055") || str.equals("058")) {
-            return true;
-        }
-        return false;
+        return str.equals("050") || str.equals("051") || str.equals("052") || str.equals("053") || str.equals("054") || str.equals("055") || str.equals("058");
     }
 
     // noNumber method
     public boolean noNumber(JTextField t) {
-        if (t.getText().equals(""))
-            return false;
-        return true;
+        return !t.getText().equals("");
     }
 
     // check message method
     public boolean noMessage(JTextField t) {
-        if (t.getText().equals(""))
-            return false;
+        return !t.getText().equals("");
+    }
+
+    public boolean isInChat(ChromeDriver driver) {
+
+        boolean flag = false;
+        while (true) {
+            if (driver.getPageSource().contains("הקלדת ההודעה")) {
+                flag = true;
+            }
+            if (flag == true)
+                break;
+        }
         return true;
     }
 }

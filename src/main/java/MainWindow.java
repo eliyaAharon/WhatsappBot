@@ -10,9 +10,9 @@ import java.io.IOException;
 public class MainWindow {
 
     public static Window window;
-    public static UserInput userInput;
-    public static ChromeDriver driver;
-    public static FirstAudio firstAudio;
+    private static UserInput userInput;
+    private static ChromeDriver driver;
+    private static FirstAudio firstAudio;
 
 
     public static void main(String[] args) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
@@ -27,7 +27,7 @@ public class MainWindow {
         window = new Window();
 
         // button setting
-        JButton enterButton = new JButton(" to enter whathap web ");
+        JButton enterButton = new JButton(" to enter whatApp web ");
         enterButton.setBackground(new Color(0, 209, 142));
         enterButton.setBounds(150, 280, 200, 100);
         enterButton.setFont(f);

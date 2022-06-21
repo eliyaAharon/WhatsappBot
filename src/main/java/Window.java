@@ -1,9 +1,12 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class Window extends JFrame {
-    public static final int WINDOW_WIDTH = 500;
-    public static final int WINDOW_HEIGHT = 600;
+    private static final int WINDOW_WIDTH = 500;
+    private static final int WINDOW_HEIGHT = 600;
 
     public Window() {
         this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -16,9 +19,15 @@ public class Window extends JFrame {
         this.setTitle("My whatsapp web -->");
 
     }
-
-    public void customRemove() {
-        this.getContentPane().removeAll();
-        this.repaint();
+    public void  addImage(){
+        try {
+            this.setContentPane(new JLabel(new ImageIcon("popup-1.png")));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        this.pack();
+        this.setVisible(true);
     }
+
+
 }

@@ -17,6 +17,7 @@ public class MainWindow {
 
     public static void main(String[] args) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         MainWindow mainWindow = new MainWindow();
+
     }
 
     // constractor

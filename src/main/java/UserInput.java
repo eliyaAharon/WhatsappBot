@@ -148,7 +148,7 @@ public class UserInput {
     public boolean noMessage(JTextField t) {
         return !t.getText().equals("");
     }
-
+        // check visible of chat
     public boolean isInChat(ChromeDriver driver) {
 
         boolean flag = false;

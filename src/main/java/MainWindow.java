@@ -39,7 +39,7 @@ public class MainWindow {
             firstAudio.stopAudio();
             window.setVisible(false);
             enterButton.setVisible(false);
-            System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
+            System.setProperty("webdriver.chrome.driver", "C:\\chromedriver_win32\\chromedriver.exe");
             driver = new ChromeDriver();
             driver.manage().window().maximize();
             driver.get("https://web.whatsapp.com/");
@@ -53,7 +53,7 @@ public class MainWindow {
         Thread t = new Thread(() -> {
             boolean falg = true;
             while (falg) {
-                if (c.getPageSource().contains("תיבת טקסט להזנת החיפוש")) {
+                if (c.getPageSource().contains("תיבת טקסט להזנת החיפוש") || c.getPageSource().contains("Search input textbox")) {
                     falg = false;
                     try {
                         userInput = new UserInput(driver);

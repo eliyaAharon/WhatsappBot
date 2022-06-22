@@ -7,6 +7,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.List;
 
 public class UserInput {
     private int x = 200, y1 = 150, y2 = 250, width = 200, height = 50;
@@ -105,9 +106,12 @@ public class UserInput {
                             sendMessage.click();
                         }
                         while (true) {
-                            if (driver.getPageSource().contains(" נשלחה ") || driver.getPageSource().contains(" נקראה ") || driver.getPageSource().contains(" Read ") ||  driver.getPageSource().contains(" Delivered ")) {
-                                driver.close();
+                            List<WebElement> elementList = driver.findElements(By.cssSelector("#main > div._2gzeB > div > div._33LGR > div._3K4-L > div:nth-child(22) > div > div.Nm1g1._22AX6 > div._22Msk > div._1beEj > div > div > span"));
+                            String test = String.valueOf(elementList.get(elementList.size()-1));
+                            if (test.contains(textMessage.getText())) {
                                 MainWindow.window.addImage();
+                                Thread.sleep(2000);
+                                driver.close();
                                 break;
                             }
                         }
@@ -148,18 +152,18 @@ public class UserInput {
     public boolean noMessage(JTextField t) {
         return !t.getText().equals("");
     }
-        // check visible of chat
+
+    // check visible of chat
     public boolean isInChat(ChromeDriver driver) {
 
-        boolean flag = false;
-        while (true) {
-            if (driver.getPageSource().contains("הקלדת ההודעה") || driver.getPageSource().contains("Type a message")) {
-                flag = true;
+        while (true){
+            List<WebElement>elementList = driver.findElements(By.cssSelector("#main > footer > div._2BU3P.tm2tP.copyable-area > div > span:nth-child(2) > div > div._2lMWa > div.p3_M1 > div > div._13NKt.copyable-text.selectable-text"));
+
+            if (elementList.size()!=0){
+                return true;
             }
-            if (flag == true)
-                break;
         }
-        return true;
+
     }
 }
 

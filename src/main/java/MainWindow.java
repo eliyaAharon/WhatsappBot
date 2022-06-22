@@ -1,4 +1,5 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -6,6 +7,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.List;
 
 public class MainWindow {
 
@@ -39,7 +41,7 @@ public class MainWindow {
             firstAudio.stopAudio();
             window.setVisible(false);
             enterButton.setVisible(false);
-            System.setProperty("webdriver.chrome.driver", "C:\\chromedriver_win32\\chromedriver.exe");
+            System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
             driver = new ChromeDriver();
             driver.manage().window().maximize();
             driver.get("https://web.whatsapp.com/");
@@ -49,19 +51,17 @@ public class MainWindow {
     }
 
     // checkLoginSuccessful method
-    public static void checkScan(ChromeDriver c) {
+    public static void checkScan(ChromeDriver driver) {
         Thread t = new Thread(() -> {
-            boolean falg = true;
-            while (falg) {
-                if (c.getPageSource().contains("תיבת טקסט להזנת החיפוש") || c.getPageSource().contains("Search input textbox")) {
-                    falg = false;
+
+            while (true) {
+                List<WebElement> elementList = MainWindow.driver.findElements(By.cssSelector("#side > div.uwk68 > div > div > div._16C8p"));
+                if (elementList.size() != 0) {
+
                     try {
-                        userInput = new UserInput(driver);
-                    } catch (UnsupportedAudioFileException e) {
-                        e.printStackTrace();
-                    } catch (LineUnavailableException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
+                        userInput = new UserInput(MainWindow.driver);
+                        break;
+                    } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
                         e.printStackTrace();
                     }
 

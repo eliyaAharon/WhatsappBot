@@ -7,6 +7,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.List;
 
 public class UserInput {
     private int x = 200, y1 = 150, y2 = 250, width = 200, height = 50;
@@ -105,7 +106,7 @@ public class UserInput {
                             sendMessage.click();
                         }
                         while (true) {
-                            if (driver.getPageSource().contains(" נשלחה ") || driver.getPageSource().contains(" נקראה ") || driver.getPageSource().contains(" Read ") ||  driver.getPageSource().contains(" Delivered ")) {
+                            if (driver.getPageSource().contains(" נשלחה ") || driver.getPageSource().contains(" נקראה ") || driver.getPageSource().contains(" Read ") || driver.getPageSource().contains(" Delivered ")) {
                                 MainWindow.window.addImage();
                                 break;
                             }
@@ -148,19 +149,22 @@ public class UserInput {
     public boolean noMessage(JTextField t) {
         return !t.getText().equals("");
     }
-        // check visible of chat
+
+    // check visible of chat
     public boolean isInChat(ChromeDriver driver) {
 
         boolean flag = false;
         while (true) {
-            if (driver.getPageSource().contains("הקלדת ההודעה") || driver.getPageSource().contains("Type a message")) {
+            List<WebElement> webElements = driver.findElements(By.cssSelector("#main > footer > div._2BU3P.tm2tP.copyable-area > div > span:nth-child(2) > div > div._2lMWa > div.p3_M1 > div > div._13NKt.copyable-text.selectable-text"));
+            if (webElements.size() != 0) {
                 flag = true;
             }
-            if (flag == true)
+            if (flag)
                 break;
         }
         return true;
     }
+
 }
 
 

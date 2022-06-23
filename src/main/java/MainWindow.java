@@ -1,4 +1,5 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -6,6 +7,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.List;
 
 public class MainWindow {
 
@@ -52,16 +54,13 @@ public class MainWindow {
     public static void checkScan(ChromeDriver c) {
         Thread t = new Thread(() -> {
             boolean falg = true;
-            while (falg) {
-                if (c.getPageSource().contains("תיבת טקסט להזנת החיפוש")) {
-                    falg = false;
+            while (true) {
+                List<WebElement> webElements = driver.findElements(By.cssSelector("#side > div.uwk68 > div > div > div._16C8p > div > div._13NKt.copyable-text.selectable-text"));
+                if (webElements.size() != 0) {
                     try {
                         userInput = new UserInput(driver);
-                    } catch (UnsupportedAudioFileException e) {
-                        e.printStackTrace();
-                    } catch (LineUnavailableException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
+                        break;
+                    } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
                         e.printStackTrace();
                     }
 

@@ -8,6 +8,7 @@ public class Window extends JFrame {
     private static final int WINDOW_WIDTH = 500;
     private static final int WINDOW_HEIGHT = 600;
 
+
     public Window() {
         this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         this.setResizable(false);
@@ -28,6 +29,7 @@ public class Window extends JFrame {
         this.pack();
         this.setVisible(true);
     }
+
 
 
 }
